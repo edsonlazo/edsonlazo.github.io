@@ -1,0 +1,1 @@
+{"componentChunkName":"component---src-templates-blog-post-js","path":"/blog/test-blog","result":{"data":{"markdownRemark":{"html":"<h1>Blog de prueba</h1>","excerpt":"Blog de prueba","frontmatter":{"date":"26 September, 2020","path":"/blog/test-blog","title":"Probando la gestion de blogs"},"fields":{"readingTime":{"text":"1 min read"}}}},"pageContext":{}},"staticQueryHashes":[]}
