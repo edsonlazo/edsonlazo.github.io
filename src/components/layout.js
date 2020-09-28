@@ -67,7 +67,11 @@ const Layout = ({ children }) => (
               Built with
               {` `}
             </p>
-            <GatsbyLink href="https://www.gatsbyjs.org">
+            <GatsbyLink
+              href="https://www.gatsbyjs.org"
+              target="_blank"
+              rel="noreferrer"
+            >
               <GatsbyIcon fixed={data.gatsbyicon.childImageSharp.fluid} />
             </GatsbyLink>
           </Footer>

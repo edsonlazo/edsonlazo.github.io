@@ -4,6 +4,7 @@ import { StaticQuery, graphql } from "gatsby"
 import styled from "@emotion/styled"
 import { css, keyframes } from "@emotion/core"
 import { FaInstagram, FaSpotify, FaLinkedin } from "react-icons/fa"
+import { MdEmail } from "react-icons/md"
 
 const Container = styled.div`
   text-align: center;
@@ -39,16 +40,16 @@ const fadeInFromTop = keyframes`
   }
 `
 
-const fadeInFromBottom = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: tanslateX(0);
-  }
-`
+// const fadeInFromBottom = keyframes`
+//   from {
+//     opacity: 0;
+//     transform: translateY(20px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: tanslateX(0);
+//   }
+// `
 
 const LandingBio = () => (
   <StaticQuery
@@ -86,13 +87,28 @@ const LandingBio = () => (
               flex-direction: row;
             `}
           >
-            <a href={data.site.siteMetadata.instagram} target="_blank">
-              <FaInstagram />
-            </a>
-            <a href={data.site.siteMetadata.linkedin} target="_blank">
+            <a
+              href={data.site.siteMetadata.linkedin}
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaLinkedin />
             </a>
-            <a href={data.site.siteMetadata.spotify} target="_blank">
+            <a href="mailto:edsonlazos@gmail.com">
+              <MdEmail />
+            </a>
+            <a
+              href={data.site.siteMetadata.instagram}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href={data.site.siteMetadata.spotify}
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaSpotify />
             </a>
           </div>
