@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import styled from "@emotion/styled"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Gitalk from "gatsby-plugin-gitalk"
 
 const Content = styled.div`
   margin: 0 auto;
@@ -51,7 +52,12 @@ const MarkdownContent = styled.div`
 `
 
 export default ({ data }) => {
-  const post = data.markdownRemark;
+  const post = data.markdownRemark
+
+  let gitalkConfig = {
+    id: post.frontmatter.path,
+    title: post.frontmatter.title,
+  }
   return (
     <Layout>
       <SEO
@@ -65,6 +71,7 @@ export default ({ data }) => {
         </HeaderDate>
         <MarkdownContent dangerouslySetInnerHTML={{ __html: post.html }} />
       </Content>
+      <Gitalk options={gitalkConfig} />
     </Layout>
   )
 }

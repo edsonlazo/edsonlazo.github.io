@@ -72,5 +72,18 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // 'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-gitalk`,
+      options: {
+        config: {
+          clientID: `8f7f7a55e976b1735617`,
+          clientSecret: `a540c3c02b6290e6e008cfef96bebbcad76d5777`,
+          repo: `edsonlazo.github.io`,
+          owner: `edsonlazo`,
+          admin: [`edsonlazo`],
+          language: `en`
+        }
+      }
+    }
   ],
 }
