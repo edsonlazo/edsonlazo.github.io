@@ -51,7 +51,7 @@ const MarkdownContent = styled.div`
 `
 
 export default ({ data }) => {
-  const post = data.markdownRemark
+  const post = data.markdownRemark;
   return (
     <Layout>
       <SEO
