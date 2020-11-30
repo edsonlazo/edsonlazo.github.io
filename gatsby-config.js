@@ -2,12 +2,13 @@ module.exports = {
   pathPrefix: "/",
   siteMetadata: {
     title: `Edson Lazo`,
-    subtitle: `software developer`,
+    subtitle: `Software Engineer & Problem Solver`,
     description: `A minimal blog starter built with Gatsbyjs. The needed Gatsby files are included.`,
     author: `@niklasmtj`,
     instagram: `https://www.instagram.com/edsonlazo/`,
     spotify: `https://open.spotify.com/show/6Hkj1T4pHxgu7x3ZtyRiFH?si=mv2mp27IS-qGjGF_eYizOA`,
     linkedin: `https://bo.linkedin.com/in/edsonlazo`,
+    twitter: `https://twitter.com/EdsonLazo_`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -81,9 +82,9 @@ module.exports = {
           repo: `edsonlazo.github.io`,
           owner: `edsonlazo`,
           admin: [`edsonlazo`],
-          language: `en`
-        }
-      }
-    }
+          language: `en`,
+        },
+      },
+    },
   ],
 }

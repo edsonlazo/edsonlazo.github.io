@@ -17,15 +17,16 @@ const ArticleDate = styled.h5`
   color: #606060;
 `
 
-const MarkerHeader = styled.h3`
+const MarkerHeader = styled.h2`
   display: inline;
   border-radius: 1em 0 1em 0;
-  background-image: linear-gradient(
-    -100deg,
-    rgba(255, 250, 150, 0.15),
-    rgba(255, 250, 150, 0.8) 100%,
-    rgba(255, 250, 150, 0.25)
-  );
+  // background-image: linear-gradient(
+  //   -100deg,
+  //   rgba(187, 0, 14, 0.15),
+  //   rgba(187, 0, 14, 0.8) 100%,
+  //   rgba(187, 0, 14, 0.25)
+  // );
+  text-decoration: rgba(51, 147, 255, 0.8) underline;
 `
 
 const ReadingTime = styled.h5`

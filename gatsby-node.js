@@ -34,7 +34,7 @@ exports.createPages = ({ graphql, actions }) => {
   const blogPostTemplate = path.resolve(`src/templates/blog-post.js`)
   return graphql(`
     {
-      allMarkdownRemark {
+      allMarkdownRemark(filter: { fileAbsolutePath: { regex: "/posts/" } }) {
         edges {
           node {
             frontmatter {
@@ -49,7 +49,7 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     }
-  `).then(result => {
+  `).then((result) => {
     if (result.errors) {
       return Promise.reject(result.errors)
     }

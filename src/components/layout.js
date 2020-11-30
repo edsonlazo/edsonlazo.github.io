@@ -12,7 +12,7 @@ import styled from "@emotion/styled"
 import Img from "gatsby-image"
 import "gitalk/dist/gitalk.css"
 import Header from "./header"
-import "./layout.css"
+import "./layout2.css"
 
 const Content = styled.div`
   margin: 0 auto;
@@ -72,7 +72,7 @@ const Layout = ({ children }) => (
               target="_blank"
               rel="noreferrer"
             >
-              <GatsbyIcon fixed={data.gatsbyicon.childImageSharp.fluid} />
+              <GatsbyIcon fluid={data.gatsbyicon.childImageSharp.fluid} />
             </GatsbyLink>
           </Footer>
         </Content>

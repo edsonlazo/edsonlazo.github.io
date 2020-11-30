@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
 import styled from "@emotion/styled"
 import { css, keyframes } from "@emotion/core"
-import { FaInstagram, FaSpotify, FaLinkedin } from "react-icons/fa"
+import { FaInstagram, FaSpotify, FaLinkedin, FaTwitter } from "react-icons/fa"
 import { MdEmail } from "react-icons/md"
 
 const Container = styled.div`
@@ -62,6 +62,7 @@ const LandingBio = () => (
             instagram
             spotify
             linkedin
+            twitter
           }
         }
       }
@@ -93,6 +94,13 @@ const LandingBio = () => (
               rel="noreferrer"
             >
               <FaLinkedin />
+            </a>
+            <a
+              href={data.site.siteMetadata.twitter}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaTwitter />
             </a>
             <a href="mailto:edsonlazos@gmail.com">
               <MdEmail />
