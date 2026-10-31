@@ -1,0 +1,58 @@
+---
+import { SITE, SOCIALS } from "@config";
+
+export interface Props {
+  showHome?: boolean;
+}
+
+const { showHome = true } = Astro.props;
+
+const links = [
+  ...(showHome ? [{ name: "Home", href: "/" }] : []),
+  { name: "About", href: "/about/" },
+  { name: "RSS", href: "/rss.xml" },
+  ...SOCIALS.filter(social => social.active).map(({ name, href }) => ({
+    name: name === "Mail" ? "Email" : name,
+    href,
+  })),
+];
+---
+
+<nav aria-label="Site">
+  {
+    links.map(({ name, href }, index) => (
+      <>
+        {index > 0 && <span aria-hidden="true">·</span>}
+        <a href={href}>{name}</a>
+      </>
+    ))
+  }
+  {
+    SITE.lightAndDarkMode && (
+      <>
+        <span aria-hidden="true">·</span>
+        <button id="theme-btn" title="Toggles light & dark" aria-live="polite">
+          <span class="dark-label">Dark</span>
+          <span class="light-label">Light</span>
+        </button>
+      </>
+    )
+  }
+</nav>
+
+<style>
+  nav {
+    @apply flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm opacity-70;
+  }
+  nav a,
+  nav button {
+    @apply underline decoration-1 underline-offset-4 hover:text-skin-accent;
+  }
+  .light-label,
+  :global(html[data-theme="dark"]) .dark-label {
+    @apply hidden;
+  }
+  :global(html[data-theme="dark"]) .light-label {
+    @apply inline;
+  }
+</style>
