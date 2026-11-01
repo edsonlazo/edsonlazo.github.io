@@ -1,11 +1,10 @@
 import type { Site, SocialObjects } from "./types";
 
 export const SITE: Site = {
-  website: "https://edsonlazo.dev/", // replace this with your deployed domain
+  website: "https://edsonlazo.com/",
   author: "Edson Lazo",
-  desc: "Personal website.",
+  desc: "Backend developer from Bolivia, writing about software and whatever I'm learning.",
   title: "Edson Lazo",
-  ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerPage: 3,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
@@ -15,13 +14,6 @@ export const LOCALE = {
   lang: "en", // html lang code. Set this empty and default will be "en"
   langTag: ["en-EN"], // BCP 47 Language Tags. Set this empty [] to use the environment default
 } as const;
-
-export const LOGO_IMAGE = {
-  enable: false,
-  svg: true,
-  width: 216,
-  height: 46,
-};
 
 export const SOCIALS: SocialObjects = [
   {
