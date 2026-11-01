@@ -114,6 +114,21 @@ const socialImageURL = new URL(
     <ViewTransitions />
 
     <script is:inline src="/toggle-theme.js"></script>
+
+    <!-- GoatCounter analytics (no cookies) -->
+    <script
+      is:inline
+      data-goatcounter="https://edsonlazo.goatcounter.com/count"
+      async
+      src="https://gc.zgo.at/count.js"></script>
+    <script is:inline>
+      // View transitions swap pages without a full load, so count them manually
+      document.addEventListener("astro:after-swap", () => {
+        window.goatcounter?.count?.({
+          path: location.pathname + location.search + location.hash,
+        });
+      });
+    </script>
   </head>
   <body>
     <slot />
