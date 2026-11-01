@@ -1,6 +1,6 @@
 # edsonlazo.github.io
 
-Personal website and blog of Edson Lazo, a backend developer from Bolivia. Live at [edsonlazo.com](https://edsonlazo.com/).
+Personal website and blog of Edson Lazo, a software engineer from Bolivia. Live at [edsonlazo.com](https://edsonlazo.com/).
 
 The site is built with [Astro](https://astro.build/), starting from the [AstroPaper](https://github.com/satnaing/astro-paper) theme and trimmed down to a minimal layout: the home page lists every post directly, with no header nav.
 
