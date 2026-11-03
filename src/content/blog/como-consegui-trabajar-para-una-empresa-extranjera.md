@@ -16,6 +16,8 @@ Si trabajás como desarrollador en LATAM, probablemente alguna vez pensaste en t
 
 No voy a escribir sobre el proceso de entrevista específico por el que pasé.
 
+## Contenido
+
 ## Inglés
 
 Esto fue lo más importante. Si bien hay oportunidades en empresas latinoamericanas que no te exigen inglés, las mejores sí lo hacen. Saber inglés puede aumentar muchísimo las vacantes a las que podés acceder.

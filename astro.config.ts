@@ -18,7 +18,7 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [
-      remarkToc,
+      [remarkToc, { heading: "(table[ -]of[ -])?contents?|toc|contenido" }],
       [
         remarkCollapse,
         {
