@@ -3,10 +3,18 @@ import { getCollection } from "astro:content";
 import Posts from "@layouts/Posts.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import getPagination from "@utils/getPagination";
+import { LANGS, type Lang } from "@i18n/ui";
+import { filterPostsByLang } from "@i18n/utils";
+
+export function getStaticPaths() {
+  return LANGS.map(lang => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
 
 const posts = await getCollection("blog");
 
-const sortedPosts = getSortedPosts(posts);
+const sortedPosts = getSortedPosts(filterPostsByLang(posts, lang));
 
 const pagination = getPagination({
   posts: sortedPosts,

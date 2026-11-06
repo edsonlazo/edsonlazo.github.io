@@ -1,0 +1,104 @@
+---
+import { SITE } from "@config";
+import { LANG_NAMES } from "@i18n/ui";
+import { getAlternates, toLang, useTranslations } from "@i18n/utils";
+
+const lang = toLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+// Links to the same page in the other language(s), or their home page if it has no translation
+const languages = getAlternates(Astro.url, Astro.locals);
+---
+
+<div class="site-controls">
+  <div class="controls">
+    <span class="switch" role="group" aria-label={t("nav.language")}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        class="globe"
+      >
+        <path
+          d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.93 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14a8.2 8.2 0 0 1 0-4h3.38a16.5 16.5 0 0 0 0 4H4.26zm.81 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.99 7.99 0 0 1 5.07 16zm2.95-8H5.07a7.99 7.99 0 0 1 4.33-3.56A15.65 15.65 0 0 0 8.02 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66a14.7 14.7 0 0 1 0-4h4.68a14.7 14.7 0 0 1 0 4zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 0 1-4.33 3.56zM16.36 14a16.5 16.5 0 0 0 0-4h3.38a8.2 8.2 0 0 1 0 4h-3.38z"
+        ></path>
+      </svg>
+      {
+        languages.map(alternate =>
+          alternate.lang === lang ? (
+            <span
+              class="option active"
+              aria-current="true"
+              title={LANG_NAMES[lang]}
+            >
+              {lang.toUpperCase()}
+            </span>
+          ) : (
+            <a
+              class="option"
+              href={alternate.href}
+              hreflang={alternate.lang}
+              lang={alternate.lang}
+              title={LANG_NAMES[alternate.lang]}
+            >
+              {alternate.lang.toUpperCase()}
+            </a>
+          )
+        )
+      }
+    </span>
+
+    {
+      SITE.lightAndDarkMode && (
+        // public/toggle-theme.js listens for clicks on #theme-btn
+        <button id="theme-btn" class="switch" title={t("nav.themeTitle")}>
+          <span class="option light-option" title={t("nav.light")}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M6.993 12c0 2.761 2.246 5.007 5.007 5.007s5.007-2.246 5.007-5.007S14.761 6.993 12 6.993 6.993 9.239 6.993 12zM12 8.993c1.658 0 3.007 1.349 3.007 3.007S13.658 15.007 12 15.007 8.993 13.658 8.993 12 10.342 8.993 12 8.993zM10.998 19h2v3h-2zm0-17h2v3h-2zm-9 9h3v2h-3zm17 0h3v2h-3zM4.219 18.363l2.12-2.122 1.415 1.414-2.12 2.122zM16.24 6.344l2.122-2.122 1.414 1.414-2.122 2.122zM6.342 7.759 4.22 5.637l1.415-1.414 2.12 2.122zm13.434 10.605-1.414 1.414-2.122-2.122 1.414-1.414z" />
+            </svg>
+            <span class="sr-only">{t("nav.light")}</span>
+          </span>
+          <span class="option dark-option" title={t("nav.dark")}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M20.742 13.045a8.088 8.088 0 0 1-2.077.271c-2.135 0-4.14-.83-5.646-2.336a8.025 8.025 0 0 1-2.064-7.723A1 1 0 0 0 9.73 2.034a10.014 10.014 0 0 0-4.489 2.582c-3.898 3.898-3.898 10.243 0 14.143a9.937 9.937 0 0 0 7.072 2.93 9.93 9.93 0 0 0 7.07-2.929 10.007 10.007 0 0 0 2.583-4.491 1.001 1.001 0 0 0-1.224-1.224zm-2.772 4.301a7.947 7.947 0 0 1-5.656 2.343 7.953 7.953 0 0 1-5.658-2.344c-3.118-3.119-3.118-8.195 0-11.314a7.923 7.923 0 0 1 2.06-1.483 10.027 10.027 0 0 0 2.89 7.848 9.972 9.972 0 0 0 7.848 2.891 8.036 8.036 0 0 1-1.484 2.059z" />
+            </svg>
+            <span class="sr-only">{t("nav.dark")}</span>
+          </span>
+        </button>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  /* On phones the controls get their own row so they don't cover breadcrumbs.
+     From sm up the bar has zero height and the controls float in the top-right
+     corner of the content without pushing anything down */
+  .site-controls {
+    @apply relative mx-auto w-full max-w-3xl px-4 pt-4 sm:h-0 sm:p-0;
+  }
+  .controls {
+    @apply z-10 flex items-center justify-end gap-2 sm:absolute sm:right-4 sm:top-4;
+  }
+  .switch {
+    @apply inline-flex items-center gap-0.5 rounded-full border border-skin-accent px-1 py-0.5 text-xs font-semibold text-skin-accent;
+  }
+  .globe {
+    @apply ml-0.5 mr-0.5 h-3.5 w-3.5 fill-current;
+  }
+  .option {
+    @apply rounded-full px-2 py-0.5;
+  }
+  .option svg {
+    @apply h-4 w-4 fill-current;
+  }
+  a.option,
+  #theme-btn .option {
+    @apply hover:bg-skin-accent hover:bg-opacity-15;
+  }
+  .option.active,
+  :global(html:not([data-theme="dark"])) .light-option,
+  :global(html[data-theme="dark"]) .dark-option {
+    @apply bg-skin-accent text-skin-inverted hover:bg-opacity-100;
+  }
+</style>

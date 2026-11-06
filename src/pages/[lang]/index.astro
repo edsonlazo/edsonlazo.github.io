@@ -1,0 +1,56 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import SiteLinks from "@components/SiteLinks.astro";
+import Card from "@components/Card";
+import getSortedPosts from "@utils/getSortedPosts";
+import { SITE } from "@config";
+import { LANGS, type Lang } from "@i18n/ui";
+import { filterPostsByLang, getPostUrl, useTranslations } from "@i18n/utils";
+
+export function getStaticPaths() {
+  return LANGS.map(lang => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+
+const posts = await getCollection("blog");
+
+const sortedPosts = getSortedPosts(filterPostsByLang(posts, lang));
+---
+
+<Layout>
+  <main id="main-content">
+    <h1>{SITE.title}</h1>
+    <p class="intro">{t("site.desc")}</p>
+    <SiteLinks showHome={false} />
+
+    <ul>
+      {
+        sortedPosts.map(post => (
+          <Card href={getPostUrl(post)} frontmatter={post.data} lang={lang} />
+        ))
+      }
+    </ul>
+    {sortedPosts.length === 0 && <p class="empty">{t("home.empty")}</p>}
+  </main>
+</Layout>
+
+<style>
+  main {
+    @apply mx-auto w-full max-w-3xl px-4 pb-12 pt-12 sm:pt-16;
+  }
+  h1 {
+    @apply text-3xl font-semibold;
+  }
+  .intro {
+    @apply mb-3 mt-3 opacity-80;
+  }
+  ul {
+    @apply mt-8;
+  }
+  .empty {
+    @apply opacity-70;
+  }
+</style>

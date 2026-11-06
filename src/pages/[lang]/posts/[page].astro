@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import Posts from "@layouts/Posts.astro";
+import getSortedPosts from "@utils/getSortedPosts";
+import getPageNumbers from "@utils/getPageNumbers";
+import getPagination from "@utils/getPagination";
+import { LANGS, type Lang } from "@i18n/ui";
+import { filterPostsByLang } from "@i18n/utils";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return LANGS.flatMap(lang =>
+    getPageNumbers(filterPostsByLang(posts, lang).length).map(page => ({
+      params: { lang, page: String(page) },
+    }))
+  );
+}
+
+const { page } = Astro.params;
+const lang = Astro.params.lang as Lang;
+
+const posts = await getCollection("blog");
+
+const sortedPosts = getSortedPosts(filterPostsByLang(posts, lang));
+
+const pagination = getPagination({
+  posts: sortedPosts,
+  page,
+});
+---
+
+<Posts {...pagination} />

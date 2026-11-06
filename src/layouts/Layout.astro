@@ -1,7 +1,20 @@
 ---
-import { LOCALE, SITE } from "@config";
+import { SITE } from "@config";
 import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
+import SiteControls from "@components/SiteControls.astro";
+import { DEFAULT_LANG } from "@i18n/ui";
+import { getAlternates, toLang, useTranslations } from "@i18n/utils";
+
+const lang = toLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+// hreflang links only make sense when another language has the same page
+const exactAlternates = getAlternates(Astro.url, Astro.locals).filter(
+  alternate => alternate.exact
+);
+const hreflangs = exactAlternates.length > 1 ? exactAlternates : [];
+const xDefault = hreflangs.find(alternate => alternate.lang === DEFAULT_LANG);
 
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 
@@ -19,7 +32,7 @@ export interface Props {
 const {
   title = SITE.title,
   author = SITE.author,
-  description = SITE.desc,
+  description = t("site.desc"),
   ogImage = SITE.ogImage,
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
   pubDatetime,
@@ -34,15 +47,30 @@ const socialImageURL = new URL(
 ---
 
 <!doctype html>
-<html
-  lang=`${LOCALE.lang ?? "en"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
->
+<html lang={lang} class={`${scrollSmooth && "scroll-smooth"}`}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL} />
+    {
+      hreflangs.map(alternate => (
+        <link
+          rel="alternate"
+          hreflang={alternate.lang}
+          href={new URL(alternate.href, Astro.site)}
+        />
+      ))
+    }
+    {
+      xDefault && (
+        <link
+          rel="alternate"
+          hreflang="x-default"
+          href={new URL(xDefault.href, Astro.site)}
+        />
+      )
+    }
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -131,6 +159,7 @@ const socialImageURL = new URL(
     </script>
   </head>
   <body>
+    <SiteControls />
     <slot />
   </body>
 </html>

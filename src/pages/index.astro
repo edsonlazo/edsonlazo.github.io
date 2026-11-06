@@ -1,46 +1,25 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "@layouts/Layout.astro";
-import SiteLinks from "@components/SiteLinks.astro";
-import Card from "@components/Card";
-import getSortedPosts from "@utils/getSortedPosts";
+import { getRelativeLocaleUrl } from "astro:i18n";
 import { SITE } from "@config";
+import { DEFAULT_LANG } from "@i18n/ui";
 
-const posts = await getCollection("blog");
-
-const sortedPosts = getSortedPosts(posts);
+// Every page lives under a language, so "/" just sends visitors to the default one.
+// Written by hand because Astro.redirect waits 2 seconds on static sites.
+// Relative so it stays on the current host (localhost in dev)
+const target = getRelativeLocaleUrl(DEFAULT_LANG);
+const canonical = new URL(target, Astro.site).href;
 ---
 
-<Layout>
-  <main id="main-content">
-    <h1>{SITE.title}</h1>
-    <p class="intro">
-      Software engineer from Bolivia, writing about software and whatever I'm
-      learning.
-    </p>
-    <SiteLinks showHome={false} />
-
-    <ul>
-      {
-        sortedPosts.map(({ data, slug }) => (
-          <Card href={`/posts/${slug}/`} frontmatter={data} />
-        ))
-      }
-    </ul>
-  </main>
-</Layout>
-
-<style>
-  main {
-    @apply mx-auto w-full max-w-3xl px-4 pb-12 pt-12 sm:pt-16;
-  }
-  h1 {
-    @apply text-3xl font-semibold;
-  }
-  .intro {
-    @apply mb-3 mt-3 opacity-80;
-  }
-  ul {
-    @apply mt-8;
-  }
-</style>
+<!doctype html>
+<html lang={DEFAULT_LANG}>
+  <head>
+    <meta charset="UTF-8" />
+    <title>{SITE.title}</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={canonical} />
+  </head>
+  <body>
+    <a href={target}>{target}</a>
+  </body>
+</html>

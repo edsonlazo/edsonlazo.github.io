@@ -1,0 +1,24 @@
+---
+import { type CollectionEntry, getCollection } from "astro:content";
+import PostDetails from "@layouts/PostDetails.astro";
+import type { Lang } from "@i18n/ui";
+import { getPostLang, getPostSlug, getPostTranslations } from "@i18n/utils";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+  translations: Partial<Record<Lang, string>>;
+}
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return posts.map(post => ({
+    params: { lang: getPostLang(post), slug: getPostSlug(post) },
+    props: { post, translations: getPostTranslations(post, posts) },
+  }));
+}
+
+const { post, translations } = Astro.props;
+---
+
+<PostDetails {post} {translations} />

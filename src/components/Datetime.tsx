@@ -1,8 +1,10 @@
-import { LOCALE } from "@config";
+import { LANG_TAGS, type Lang } from "@i18n/ui";
+import { useTranslations } from "@i18n/utils";
 
 interface DatetimesProps {
   pubDatetime: string | Date;
   modDatetime: string | Date | undefined | null;
+  lang: Lang;
 }
 
 interface Props extends DatetimesProps {
@@ -13,9 +15,11 @@ interface Props extends DatetimesProps {
 export default function Datetime({
   pubDatetime,
   modDatetime,
+  lang,
   size = "sm",
   className,
 }: Props) {
+  const t = useTranslations(lang);
   return (
     <div className={`flex items-center space-x-2 opacity-80 ${className}`}>
       <svg
@@ -30,31 +34,37 @@ export default function Datetime({
       </svg>
       {modDatetime ? (
         <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
-          Updated:
+          {t("datetime.updated")}
         </span>
       ) : (
-        <span className="sr-only">Published:</span>
+        <span className="sr-only">{t("datetime.published")}</span>
       )}
       <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
         <FormattedDatetime
           pubDatetime={pubDatetime}
           modDatetime={modDatetime}
+          lang={lang}
         />
       </span>
     </div>
   );
 }
 
-const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
+const FormattedDatetime = ({
+  pubDatetime,
+  modDatetime,
+  lang,
+}: DatetimesProps) => {
+  const t = useTranslations(lang);
   const myDatetime = new Date(modDatetime ? modDatetime : pubDatetime);
 
-  const date = myDatetime.toLocaleDateString(LOCALE.langTag, {
+  const date = myDatetime.toLocaleDateString(LANG_TAGS[lang], {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
 
-  const time = myDatetime.toLocaleTimeString(LOCALE.langTag, {
+  const time = myDatetime.toLocaleTimeString(LANG_TAGS[lang], {
     hour: "2-digit",
     minute: "2-digit",
   });
@@ -63,7 +73,7 @@ const FormattedDatetime = ({ pubDatetime, modDatetime }: DatetimesProps) => {
     <>
       <time dateTime={myDatetime.toISOString()}>{date}</time>
       <span aria-hidden="true"> | </span>
-      <span className="sr-only">&nbsp;at&nbsp;</span>
+      <span className="sr-only">&nbsp;{t("datetime.at")}&nbsp;</span>
       <span className="text-nowrap">{time}</span>
     </>
   );

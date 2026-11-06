@@ -1,5 +1,7 @@
 ---
-import { SITE, SOCIALS } from "@config";
+import { SOCIALS } from "@config";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { toLang, useTranslations } from "@i18n/utils";
 
 export interface Props {
   showHome?: boolean;
@@ -7,12 +9,17 @@ export interface Props {
 
 const { showHome = true } = Astro.props;
 
+const lang = toLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
 const links = [
-  ...(showHome ? [{ name: "Home", href: "/" }] : []),
-  { name: "About", href: "/about/" },
+  ...(showHome
+    ? [{ name: t("nav.home"), href: getRelativeLocaleUrl(lang) }]
+    : []),
+  { name: t("nav.about"), href: getRelativeLocaleUrl(lang, "about") },
   { name: "RSS", href: "/rss.xml" },
   ...SOCIALS.filter(social => social.active).map(({ name, href }) => ({
-    name: name === "Mail" ? "Email" : name,
+    name: name === "Mail" ? t("nav.email") : name,
     href,
   })),
 ];
@@ -27,32 +34,13 @@ const links = [
       </>
     ))
   }
-  {
-    SITE.lightAndDarkMode && (
-      <>
-        <span aria-hidden="true">·</span>
-        <button id="theme-btn" title="Toggles light & dark" aria-live="polite">
-          <span class="dark-label">Dark</span>
-          <span class="light-label">Light</span>
-        </button>
-      </>
-    )
-  }
 </nav>
 
 <style>
   nav {
     @apply flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm opacity-70;
   }
-  nav a,
-  nav button {
+  nav a {
     @apply underline decoration-1 underline-offset-4 hover:text-skin-accent;
-  }
-  .light-label,
-  :global(html[data-theme="dark"]) .dark-label {
-    @apply hidden;
-  }
-  :global(html[data-theme="dark"]) .light-label {
-    @apply inline;
   }
 </style>

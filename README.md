@@ -6,15 +6,17 @@ The site is built with [Astro](https://astro.build/), starting from the [AstroPa
 
 ## Pages
 
-- `/` — short intro, site links, and the full list of posts
-- `/about/` — about me
-- `/posts/<slug>/` — individual posts
-- `/tags/` — posts grouped by tag
-- `/rss.xml` — RSS feed
+The site is in Spanish (`es`, the default) and English (`en`). Every page lives under its language, and `/` redirects to `/es/`. UI strings are in `src/i18n/ui.ts`.
+
+- `/<lang>/` — short intro, site links, and the full list of posts in that language
+- `/<lang>/about/` — about me (`src/pages/es/about.md`, `src/pages/en/about.md`)
+- `/<lang>/<slug>/` — individual posts
+- `/<lang>/tags/` — posts grouped by tag
+- `/rss.xml` — RSS feed (both languages)
 
 ## Writing a post
 
-Posts are Markdown files in `src/content/blog/`. Each one needs frontmatter like this:
+Posts are Markdown files in `src/content/blog/es/` or `src/content/blog/en/`; the folder sets the language. To link a translation, give both files the same file name (e.g. `es/my-post.md` and `en/my-post.md`) and set a different `slug` in each one's frontmatter; the language switcher and `hreflang` tags then point to each other. Each post needs frontmatter like this:
 
 ```yaml
 ---

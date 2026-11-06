@@ -4,17 +4,22 @@ import TagPosts from "@layouts/TagPosts.astro";
 import getPostsByTag from "@utils/getPostsByTag";
 import getPagination from "@utils/getPagination";
 import getUniqueTags from "@utils/getUniqueTags";
+import { LANGS } from "@i18n/ui";
+import { filterPostsByLang } from "@i18n/utils";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const allPosts = await getCollection("blog");
 
-  const tags = getUniqueTags(posts);
+  return LANGS.flatMap(lang => {
+    const posts = filterPostsByLang(allPosts, lang);
+    const tags = getUniqueTags(posts);
 
-  return tags.map(({ tag, tagName }) => {
-    return {
-      params: { tag },
-      props: { tag, tagName, posts },
-    };
+    return tags.map(({ tag, tagName }) => {
+      return {
+        params: { lang, tag },
+        props: { tag, tagName, posts },
+      };
+    });
   });
 }
 

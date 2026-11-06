@@ -3,6 +3,8 @@ import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
 import Footer from "@components/Footer.astro";
 import LinkButton from "@components/LinkButton.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { DEFAULT_LANG } from "@i18n/ui";
 ---
 
 <Layout title={`404 Not Found | ${SITE.title}`}>
@@ -10,12 +12,13 @@ import LinkButton from "@components/LinkButton.astro";
     <div class="not-found-wrapper">
       <h1 aria-label="404 Not Found">404</h1>
       <span aria-hidden="true">¯\_(ツ)_/¯</span>
-      <p>Page Not Found</p>
+      <p>Página no encontrada</p>
+      <p class="secondary" lang="en">Page Not Found</p>
       <LinkButton
-        href="/"
+        href={getRelativeLocaleUrl(DEFAULT_LANG)}
         className="my-6 text-lg underline decoration-dashed underline-offset-8"
       >
-        Go back home
+        Volver al inicio
       </LinkButton>
     </div>
   </main>
@@ -32,6 +35,9 @@ import LinkButton from "@components/LinkButton.astro";
   }
   .not-found-wrapper h1 {
     @apply text-9xl font-bold text-skin-accent;
+  }
+  .not-found-wrapper .secondary {
+    @apply mt-1 text-lg opacity-70 sm:text-xl;
   }
   .not-found-wrapper p {
     @apply mt-4 text-2xl sm:text-3xl;

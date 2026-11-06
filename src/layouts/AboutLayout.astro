@@ -2,6 +2,8 @@
 import { SITE } from "@config";
 import Footer from "@components/Footer.astro";
 import Layout from "./Layout.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { toLang } from "@i18n/utils";
 
 export interface Props {
   frontmatter: {
@@ -11,11 +13,13 @@ export interface Props {
 }
 
 const { frontmatter } = Astro.props;
+
+const lang = toLang(Astro.currentLocale);
 ---
 
 <Layout title={`${frontmatter.title} | ${SITE.title}`}>
   <nav class="home-link">
-    <a href="/">&larr; {SITE.title}</a>
+    <a href={getRelativeLocaleUrl(lang)}>&larr; {SITE.title}</a>
   </nav>
   <main id="main-content">
     <section id="about" class="prose mb-28 max-w-3xl prose-img:border-0">
