@@ -19,7 +19,7 @@ Algo que he notado es que la IA ha llegado a nuestros espacios de trabajo y que 
 
 ## No estoy en contra de la IA
 
-A mí me encanta usar Claude para comunicarme en el trabajo; realmente me ayuda mucho a "ahorrar" tiempo. Algunas formas en que los uso que son genuinamente buenas:
+A mí me encanta usar Claude para comunicarme en el trabajo; realmente me ayuda mucho a "ahorrar" tiempo. Algunas formas en que lo uso que son genuinamente buenas:
 
 - Obtener resúmenes (TL;DR) de hilos de conversaciones muy largos para entender qué se requiere de mí si soy nombrado.
 - Realizar investigaciones de bugs en base a lo que se dice en una conversación.
@@ -37,7 +37,7 @@ Me parece que es una falta de consideración hacia tus colegas. Cuando te involu
 
 Aclarar que no me refiero a que debamos tardar en escribir nuestros mensajes, sino a asegurarnos que lo que estamos enviando realmente representa lo que queremos comunicar.
 
-Aquí un ejemplo de malas respuesta:
+Aquí un ejemplo de una mala respuesta:
 
 ![Respuesta larga generada por IA a una pregunta simple sobre mover un deploy, con opciones, emojis y ninguna decisión](/assets/respuesta-sin-criterio.png)
 
@@ -47,7 +47,7 @@ Aquí uno de una buena respuesta:
 
 ## Delego la escritura, no el criterio
 
-Es diferente pedirle a la IA que responda por vos, a pedirle que piense por vos. Esto es algo que he vivido de primera mano.
+Es diferente pedirle a la IA que escriba por vos, a pedirle que piense por vos. Esto es algo que he vivido de primera mano.
 
 Hace un tiempo, alguien de un equipo interno reportó un bug: ciertos documentos no estaban apareciendo en la plataforma que usaban para revisarlos.
 

@@ -49,7 +49,7 @@ And here's a good one:
 
 ## I delegate the writing, not the judgment
 
-Asking AI to reply for you is different from asking it to think for you. This is something I've experienced firsthand.
+Asking AI to write for you is different from asking it to think for you. This is something I've experienced firsthand.
 
 A while ago, someone from an internal team reported a bug: certain documents weren't showing up on the platform they used to review them.
 
