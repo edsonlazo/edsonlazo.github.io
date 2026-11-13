@@ -45,7 +45,7 @@ Aquí uno de una buena respuesta:
 
 ![Respuesta corta y directa a la misma pregunta, tomando una decisión clara](/assets/respuesta-con-criterio.png)
 
-## Delegar la escritura no es delegar el criterio
+## Delego la escritura, no el criterio
 
 Es diferente pedirle a la IA que responda por vos, a pedirle que piense por vos. Esto es algo que he vivido de primera mano.
 
